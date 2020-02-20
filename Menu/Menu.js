@@ -33,33 +33,39 @@ let menuItems = [
   Step 6: add the menu component to the DOM.
   
 */
-const header = document.querySelector(".header");
-const menuButton = document.querySelector(".menu-button");
+window.addEventListener("load", e => {
+  const header = document.querySelector(".header");
+  const menuButton = document.querySelector(".menu-button");
 
-function menuFactory(items) {
-  // create elements
-  const menu = document.createElement("div");
-  const ul = document.createElement("ul");
+  //function
+  const createMenu = arr => {
+    // define new elements
+    const menu = document.createElement("div");
+    const menuUl = document.createElement("ul");
 
-  // create structure
-  menu.appendChild(ul);
+    // go  over array to add li to ul
+    menuItems.forEach(item => {
+      let listItem = document.createElement("li");
+      listItem.textContent = item;
+      menuUl.appendChild(listItem);
+    });
 
-  //set content
-  menuItems.forEach(i => {
-    const li = document.createElement("li");
-    li.textContent = i;
-    ul.appendChild(li);
-  });
+    // structure setup by  appending  elements
+    header.appendChild(menu);
+    menu.appendChild(menuUl);
 
-  // apply styles
-  menu.classList.add("menu");
+    // set class names by using .add
+    menu.classList.add("menu");
 
-  //event handlers
-  menuButton.addEventListener("click", e => {
-    menu.classList.toggle("menu--open");
-  });
+    // button event listener
+    menuButton.addEventListener("click", e => {
+      menu.classList.toggle("menu--open");
+      TweenMax.to(menuVar, 1, { x: -350, ease: Power1.easeInOut });
+    });
 
-  return menu;
-}
+    // return
+    return menu;
+  };
 
-header.appendChild(menuFactory(menuItems));
+  header.appendChild(createMenu(menuItems));
+});

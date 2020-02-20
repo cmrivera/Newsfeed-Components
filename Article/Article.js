@@ -93,10 +93,6 @@ const data = [
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p> */
-/* const article = document.createElement("div");
-article.classList.add("article");
-
-
 
 /*{three separate paragraph elements}
 
@@ -119,47 +115,80 @@ article.classList.add("article");
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
-const articles = document.querySelector(".articles");
+window.addEventListener("load", e => {
+  const articles = document.querySelector(".articles");
 
-function makeArticles(articleData) {
-  //
-  const article = document.createElement("div");
-  const articleTitle = document.createElement("h2");
-  const articleDate = document.createElement("p");
-  const para1 = document.createElement("p");
-  const para2 = document.createElement("p");
-  const para3 = document.createElement("p");
-  const expandButton = document.createElement("span");
+  // function
+  const createArticle = (
+    title,
+    date,
+    firstParagraph,
+    secondParagraph,
+    thirdParagraph
+  ) => {
+    // define new elements
+    const article = document.createElement("div");
+    const articleTitle = document.createElement("h2");
+    const articleDate = document.createElement("p");
+    const articleFirstParagraph = document.createElement("p");
+    const articleSecondParagraph = document.createElement("p");
+    const articleThirdParagraph = document.createElement("p");
+    const articleButton = document.createElement("span");
 
-  //structure
-  article.appendChild(articleTitle);
-  article.appendChild(articleDate);
-  article.appendChild(para1);
-  article.appendChild(para2);
-  article.appendChild(para3);
-  article.appendChild(expandButton);
+    // structure setup (append elements)
+    articles.appendChild(article);
+    article.appendChild(articleTitle);
+    article.appendChild(articleDate);
+    article.appendChild(articleFirstParagraph);
+    article.appendChild(articleSecondParagraph);
+    article.appendChild(articleThirdParagraph);
+    article.appendChild(articleButton);
 
-  //content
-  articleTitle.textContent = articleData.title;
-  articleDate.textContent = articleData.date;
-  para1.textContent = articleData.firstParagraph;
-  para2.textContent = articleData.secondParagraph;
-  para3.textContent = articleData.thirdParagraph;
-  expandButton.textContent = "Continue Reading...";
+    // set content for elements
+    articleTitle.textContent = title;
+    articleDate.textContent = date;
+    articleFirstParagraph.textContent = firstParagraph;
+    articleSecondParagraph.textContent = secondParagraph;
+    articleThirdParagraph.textContent = thirdParagraph;
+    articleButton.textContent = "Expand";
 
-  //style
-  article.classList.add("article");
-  articleDate.classList.add("date");
-  expandButton.classList.add("expandButton");
+    // set class names for elements
+    article.classList.add("article");
+    articleDate.classList.add("date");
+    articleButton.classList.add("expandButton");
 
-  //event handler
-  expandButton.addEventListener("click", e => {
-    article.classList.toggle("article-open");
+    // button event listener "click"
+    articleButton.addEventListener("click", e => {
+      article.classList.toggle("article-open");
+    });
+
+    // return
+    return article;
+  };
+
+  // forEach
+  data.forEach(data => {
+    //console.log('creating article:', data.title);
+    articles.appendChild(
+      createArticle(
+        data.title,
+        data.date,
+        data.firstParagraph,
+        data.secondParagraph,
+        data.thirdParagraph
+      )
+    );
   });
 
-  return article;
-}
+  // map
+  let newArticles = data.map(data => {
+    let newArticle = createArticle(data);
 
-data.map(datam => {
-  articles.appendChild(makeArticles(datam));
+    return newArticle;
+  });
+
+  // adds the mapped elements to the DOM
+  newArticles.forEach(data => {
+    articles.appendChild(data);
+  });
 });
