@@ -10,7 +10,6 @@ let menuItems = [
 ];
 
 /* 
-
   Step 1: Write a function that will create a menu component as seen below:
 
   <div class="menu">
@@ -19,20 +18,20 @@ let menuItems = [
     </ul>
   </div>
 
-  The function takes an array as its only argument.
+  Pass the function an array as it's only argument.
 
-  Step 2: Inside this function, iterate over the array creating a list item <li> element for each item in the array. 
+  Step 2: Iterate over the array creating a list item <li> element for each item in the array. 
   Add those items to the <ul>
 
-  Step 3: Using a DOM selector, select the menu button (the element with a class of 'menu-button') currently on the DOM.
-
-  Step 4: add a click event listener to the menu button. When clicked it should toggle the class 'menu--open' on the menu (your div with a 'menu' class).
+  Step 3: Using a DOM selector, select the menu button currently on the DOM.
+  
+  Step 4: add a click handler to the menu button, when clicked it should toggle the class 'menu--open' on the menu itself
 
   Step 5: return the menu component.
 
   Step 6: add the menu component to the DOM.
-  
 */
+
 window.addEventListener("load", e => {
   const header = document.querySelector(".header");
   const menuButton = document.querySelector(".menu-button");
@@ -43,18 +42,18 @@ window.addEventListener("load", e => {
     const menu = document.createElement("div");
     const menuUl = document.createElement("ul");
 
-    // go  over array to add li to ul
+    // go  over the  array to add li to ul
     menuItems.forEach(item => {
       let listItem = document.createElement("li");
       listItem.textContent = item;
       menuUl.appendChild(listItem);
     });
 
-    // structure setup by  appending  elements
+    // structure setup by appending  elements
     header.appendChild(menu);
     menu.appendChild(menuUl);
 
-    // set class names by using .add
+    // set class names with add
     menu.classList.add("menu");
 
     // button event listener
